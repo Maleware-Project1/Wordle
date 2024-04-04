@@ -1,10 +1,13 @@
 import random
 import contextlib
+import nltk
 from nltk.corpus import words
 from rich.console import Console
 from rich.theme import Theme
 from string import ascii_letters, ascii_uppercase
 
+
+nltk.download("words")
 
 console = Console(width=40, theme=Theme({"warning": "red on yellow"}))
 
