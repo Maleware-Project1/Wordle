@@ -83,19 +83,25 @@ def refresh_page(headline):
 
 
 def main():
-    refresh_page("Wordle")
-    word = get_word()
-    guesses = ["_" * NUM_LETTERS] * NUM_GUESSES
-    with contextlib.suppress(KeyboardInterrupt):
-        for idx in range(6):
-            refresh_page(headline=f"Guess {idx + 1}")
-            show_guesses(guesses, word)
+    while True:
+        refresh_page("Wordle")
+        word = get_word()
+        guesses = ["_" * NUM_LETTERS] * NUM_GUESSES
+        with contextlib.suppress(KeyboardInterrupt):
+            for idx in range(6):
+                refresh_page(headline=f"Guess {idx + 1}")
+                show_guesses(guesses, word)
 
-            guesses[idx] = guess_word(previous_guesses=guesses[:idx])
-            if guesses[idx] == word:
-                break
+                guesses[idx] = guess_word(previous_guesses=guesses[:idx])
+                if guesses[idx] == word:
+                    break
 
-    game_over(guesses, word, guessed_correctly=guesses[idx] == word)
+        game_over(guesses, word, guessed_correctly=guesses[idx] == word)
+
+        play_again = console.input(
+            "\nDo you want to play again? (y/n): ").lower()
+        if play_again != "y":
+            break
 
 
 main()
